@@ -1,0 +1,26 @@
+body{
+    background-color: rgb(4, 3, 3);
+}
+
+.tabela{
+height: 450px; 
+width: 800px; 
+background-color: rgb(244, 105, 152);
+ border-radius: 15px;
+  margin-left: 200px;
+   margin-top: 20px;
+    padding-top: 0px;
+    display: flex; 
+    justify-content: center;
+     align-items:center;
+      flex-direction: column;
+     align-content: space-around;
+   
+}
+
+.topos{
+    font-size: large;
+    text-align: center;
+    font-size: 70px;
+  
+}
