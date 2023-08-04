@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="listaprof.css">
 </head>
 <body>
     
 </body>
 </html>
-    
-<?php 
 
+
+<?php 
 /*
  * Melhor prática usando Prepared Statements
  * 
@@ -23,47 +24,60 @@
   $retorno = $conexao->prepare('SELECT * FROM professor');
   $retorno->execute();
 
-?>     
-  <div class="container">
-        <table>
-             
-            <thead>
-              
-                <tr>
-                    <th style="font-size: 15px;">ID</th>
-                    <th style="font-size: 15px;">NOME</th>
-                    <th style="font-size: 15px;">IDADE</th>
-                    <th style="font-size: 15px;">ENDERECO</th>
-                    <th style="font-size: 15px;">DATA NACIMENTOS</th>
-                    
-                </tr>
-                
-            </thead>
-
-            <tbody>
-                <tr>
+?>       
+    
+        <div class="container">
+        <table class="table table-striped table-dark">
+  <thead>
+    <tr>
+    <th scope="col">ID</th>
+      <th scope="col">NOME</th>
+      <th scope="col">ENDEREÇO</th>
+      <th scope="col">IDADE</th>
+      <th scope="col">DATA DE NASCIMENTO</th>
+    
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
                     <?php foreach($retorno->fetchall() as $value) { ?>
+                    </tr>
                         <tr>
-                            <td style="font-size: 15px;"> <?php echo $value['id'] ?>   </td> 
-                            <td style="font-size: 15px; margin-left: 30px;"> <?php echo $value['nome']?>  </td> 
-                            <td style="font-size: 15px;"> <?php echo $value['idade']?> </td> 
-                            <td style="font-size: 15px;"> <?php echo $value['endereco']?> </td>
-                            <td style="font-size: 15px;"> <?php echo $value['datanascimento']?> </td>
-                            
-
+                           <td> <?php echo $value['id']?>  </td> 
+                            <td> <?php echo $value['nome']?>  </td> 
+                            <td> <?php echo $value['endereco']?>  </td> 
+                            <td> <?php echo $value['idade']?> </td> 
+                            <td> <?php echo $value['datanascimento']?> </td>
+                           
+                    
                             <td>
                                <form method="POST" action="altprof.php">
                                         <input name="id" type="hidden" value="<?php echo $value['id'];?>"/>
-                                        <button name="alterar"  type="submit" >Alterar</button>
+                                        <button name="alterar"  type="submit">Alterar</button>
                                 </form>
 
                              </td> 
 
                              <td>
-                               <form method="GET" action="crudprof.php">
-                                        <input name="id" type="hidden" value="<?php echo $value['id'];?>"/>
-                                        <button name="excluir"  type="submit" >Excluir</button>
-                                </form>
+                             <form method="GET" action="crudprof.php" onsubmit="return myFunction();">
+    <input name="id" type="hidden" value="<?php echo $value['id'];?>"/>
+    <html>
+    <script>
+        function myFunction() {
+            var r = confirm("Pressione o botão OK ou Cancelar");
+            if (r == true) {
+                // O usuário pressionou OK, prosseguir com o envio do formulário (excluir aluno)
+                return true;
+            } else {
+                // O usuário pressionou Cancelar, cancelar o envio do formulário (aluno não será excluído)
+                return false;
+            }
+        }
+    </script>
+    <button name="excluir" type="submit">Excluir</button>
+</form>
 
                              </td> 
 
@@ -73,11 +87,8 @@
                     <?php  }  ?> 
                  </tr>
             </tbody>
-        </table>
-        
-        <div class="voltar"></div>
+</table>
 <?php         
-   echo "<button class='button button3' ><a href='index.html'>voltar</a></button>";
+   echo "<button class='button3' id='voltar'><a href='index.php'>voltar</a></button>  ";
 ?>
 </div>
-                    </div>
